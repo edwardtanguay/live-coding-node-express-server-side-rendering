@@ -22,6 +22,12 @@ export const siteView = ({employees, translations, jobs}) => {
 
 <h2>There are ${jobs.length} jobs</h2>	
 
+<div class="jobs">
+	${jobs.map(job => {
+		return `<div class="job">${job.html}</div>`;
+	}).join('')}
+</div>
+
 <h2>There are ${translations.length} translations</h2>	
 <ul>
 	${translations.map(translation => `<li>${translation.fromPhrase}</li>`).join('')}

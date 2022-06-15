@@ -16,6 +16,9 @@ export const siteView = ({employees}) => {
 <ul>
 	${employees.map(employee => `<li>${employee.lastName}</li>`).join('')}
 </ul>
+
+<h2>Images</h2>
+<img src="images/code.png"/>
 <script>
 
 </script>	

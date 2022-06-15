@@ -7,6 +7,8 @@ const port = 3009;
 
 app.use(express.static('public'));
 
+app.get('/api/all-employees')
+
 app.get('/', (req, res) => {
 	res.send(siteView(siteModel))
 });

@@ -35,7 +35,19 @@ const getTranslations = async () => {
     return translations;
 };
 
+const getJobs = () => {
+    return [
+        {
+            "idCode": "nnn"
+        },
+        {
+            "idCode": "ooo"
+        }
+    ]
+}
+
 export const siteModel = {
     employees,
-    translations: await getTranslations()
+    translations: await getTranslations(),
+    jobs: getJobs()
 };

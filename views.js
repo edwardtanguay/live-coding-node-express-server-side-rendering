@@ -1,4 +1,4 @@
-export const siteView = ({employees, translations}) => {
+export const siteView = ({employees, translations, jobs}) => {
 	return `
 <!DOCTYPE html>
 <html lang="en">
@@ -19,6 +19,8 @@ export const siteView = ({employees, translations}) => {
 
 <h2>Images</h2>
 <img src="images/code.png"/>
+
+<h2>There are ${jobs.length} jobs</h2>	
 
 <h2>There are ${translations.length} translations</h2>	
 <ul>

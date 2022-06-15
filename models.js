@@ -1,5 +1,7 @@
 import axios from 'axios';
 import Excel from 'exceljs';
+import * as qfil from './qtools/qfil.js';
+import * as qstr from './qtools/qstr.js';
 
 const employees = (
     await axios.get('https://edwardtanguay.netlify.app/share/employees.json')
@@ -36,14 +38,24 @@ const getTranslations = async () => {
 };
 
 const getJobs = () => {
-    return [
-        {
-            "idCode": "nnn"
-        },
-        {
-            "idCode": "ooo"
-        }
-    ]
+    const jobs = [];
+    const jobFileNames = qfil.getSiteRelativePathAndFileNames('data/jobs');
+    jobFileNames.forEach(jobFileName => {
+        const fixedPathName = '\\' + qstr.replaceAll(jobFileName, '/', '\\');
+        const lines = qfil.getFileAsLines(fixedPathName);
+        const markdown = qstr.convertLinesToStringBlock(lines);
+        const html = qstr.parseMarkDown(markdown);
+    
+        let idCode = qstr.chopLeft(jobFileName, 'data/jobs/');
+        idCode = qstr.chopRight(idCode, '.md');
+
+        jobs.push({
+            idCode,
+            html
+        })
+    })
+    
+    return jobs;
 }
 
 export const siteModel = {

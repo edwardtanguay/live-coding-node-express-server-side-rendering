@@ -23,16 +23,16 @@ const getTranslations = async () => {
         const fromPhrase = ws.getCell(fromPhraseCell).value;
         const toPhrase = ws.getCell(toPhraseCell).value;
 
-		if (fromLanguage === null) {
-			break;
-		} else {
-			translations.push({
-				fromLanguage,
-				toLanguage,
-				fromPhrase,
-				toPhrase
-			});
-		}
+        if (fromLanguage === null) {
+            break;
+        } else {
+            translations.push({
+                fromLanguage,
+                toLanguage,
+                fromPhrase,
+                toPhrase
+            });
+        }
     }
     return translations;
 };
@@ -41,12 +41,14 @@ const getJobs = () => {
     const jobs = [];
     const jobFileNames = qfil.getSiteRelativePathAndFileNames('data/jobs');
     jobFileNames.forEach(jobFileName => {
-        const fixedPathName = '\\' + qstr.replaceAll(jobFileName, '/', '\\');
-        const lines = qfil.getFileAsLines(fixedPathName);
+        // const fixedPathName = '\\' + qstr.replaceAll(jobFileName, '/', '\\');
+        const lines = qfil.getFileAsLines(jobFileName);
         const markdown = qstr.convertLinesToStringBlock(lines);
         const html = qstr.parseMarkDown(markdown);
-    
-        let idCode = qstr.chopLeft(jobFileName, 'data/jobs/');
+
+        let idCode = qstr.chopLeft(jobFileName, 'src/data/jobs');
+        idCode = qstr.chopLeft(idCode, '/');
+        idCode = qstr.chopLeft(idCode, '\\');
         idCode = qstr.chopRight(idCode, '.md');
 
         jobs.push({
@@ -54,7 +56,7 @@ const getJobs = () => {
             html
         })
     })
-    
+
     return jobs;
 }
 
